@@ -1,4 +1,20 @@
+import { useState } from 'react';
+
 function Form() {
+  const [show, setShow] = useState(true);
+
+  const handleClick = () => {
+    setShow(!show);
+  };
+
+  if (show === true) {
+    return (
+      <div>
+        <button onClick={ handleClick }>Cadastrar nova senha</button>
+      </div>
+    );
+  }
+
   return (
     <form>
       <label>
@@ -22,7 +38,7 @@ function Form() {
       </label>
 
       <button>Cadastrar</button>
-      <button>Cancelar</button>
+      <button onClick={ handleClick }>Cancelar</button>
     </form>
   );
 }
