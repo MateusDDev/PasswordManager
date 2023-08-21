@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PasswordDisplay from './PasswordDisplay';
 
 function Form() {
   const [show, setShow] = useState(true);
@@ -22,19 +23,16 @@ function Form() {
     setPassword(event.target.value);
   };
 
-  const isChecked = () => {
-    const checks = {
-      keyService: service.length > 0,
-      keyLogin: login.length > 0,
-      keyPassword: password.length >= 8 && password.length <= 16,
-      keyPasswordSpecial: /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
-      keyPasswordLetterNumber: /[a-zA-Z]/.test(password) && /[0-9]/.test(password),
-    };
-
-    return Object.values(checks).every((key) => key === true);
+  const passwordChecks = {
+    keyService: service.length > 0,
+    keyLogin: login.length > 0,
+    keyPasswordMaxLength: password.length <= 16,
+    keyPasswordMinLength: password.length >= 8,
+    keyPasswordSpecial: /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
+    keyPasswordAlphanumeric: /[a-zA-Z]/.test(password) && /[0-9]/.test(password),
   };
 
-  console.log(isChecked());
+  const isChecked = Object.values(passwordChecks).every((key) => key === true);
 
   if (show === true) {
     return (
@@ -45,30 +43,38 @@ function Form() {
   }
 
   return (
-    <form>
-      <label>
-        Nome do serviço
-        <input type="text" onChange={ handleService } />
-      </label>
+    <>
+      <form>
+        <label>
+          Nome do serviço
+          <input type="text" onChange={ handleService } />
+        </label>
 
-      <label>
-        Login
-        <input type="text" onChange={ handleLogin } />
-      </label>
+        <label>
+          Login
+          <input type="text" onChange={ handleLogin } />
+        </label>
 
-      <label>
-        Senha
-        <input type="password" onChange={ handlePassword } />
-      </label>
+        <label>
+          Senha
+          <input type="password" onChange={ handlePassword } />
+        </label>
 
-      <label>
-        URL
-        <input type="text" />
-      </label>
+        <label>
+          URL
+          <input type="text" />
+        </label>
 
-      {isChecked() ? <button>Cadastrar</button> : <button disabled>Cadastrar</button>}
-      <button onClick={ handleClick }>Cancelar</button>
-    </form>
+        <button disabled={ !isChecked }>Cadastrar</button>
+        <button onClick={ handleClick }>Cancelar</button>
+      </form>
+      <PasswordDisplay
+        max={ passwordChecks.keyPasswordMaxLength }
+        min={ passwordChecks.keyPasswordMinLength }
+        specialChar={ passwordChecks.keyPasswordSpecial }
+        alphanumeric={ passwordChecks.keyPasswordAlphanumeric }
+      />
+    </>
   );
 }
 
