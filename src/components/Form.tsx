@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PasswordDisplay from './PasswordDisplay';
 import Fields from './Fields';
 import { Services } from '../types';
+import RegisterPassword from './RegisterPassword';
 
 function Form() {
   const [show, setShow] = useState(true);
@@ -10,6 +11,10 @@ function Form() {
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
   const [registeredServices, setRegisteredServices] = useState<Services[]>([]);
+
+  const elevateShow = (bol: boolean) => {
+    setShow(bol);
+  };
 
   const elevateService = (str: string) => {
     setService(str);
@@ -27,13 +32,8 @@ function Form() {
     setUrl(str);
   };
 
-  const handleClick = () => {
-    setShow(!show);
-  };
-
-  const handleDelete = (element: Services) => {
-    const ar = registeredServices.filter((s) => s !== element);
-    setRegisteredServices(ar);
+  const elevateRegisteredServices = (services: Services[]) => {
+    setRegisteredServices(services);
   };
 
   const handleRegisteredServices = (e: React.MouseEvent<HTMLButtonElement,
@@ -71,23 +71,11 @@ function Form() {
 
   if (show === true) {
     return (
-      <div>
-        <button onClick={ handleClick }>Cadastrar nova senha</button>
-        {registeredServices.length <= 0 && (<p>nenhuma senha cadastrada</p>)}
-        {registeredServices.length > 0 && registeredServices.map((item, index) => (
-          <div key={ index }>
-            <a href={ item.serviceUrl }>{item.serviceName}</a>
-            <p>{item.serviceLogin}</p>
-            <p>{item.servicePassword}</p>
-            <button
-              data-testid="remove-btn"
-              onClick={ () => handleDelete(item) }
-            >
-              Apagar Serviço
-            </button>
-          </div>
-        ))}
-      </div>
+      <RegisterPassword
+        changeShow={ elevateShow }
+        changeRegisteredServices={ elevateRegisteredServices }
+        registeredServices={ registeredServices }
+      />
     );
   }
 
@@ -110,7 +98,7 @@ function Form() {
         >
           Cadastrar
         </button>
-        <button onClick={ handleClick }>Cancelar</button>
+        <button onClick={ () => setShow(!show) }>Cancelar</button>
       </form>
       <PasswordDisplay
         max={ passwordChecks.keyPasswordMaxLength }
