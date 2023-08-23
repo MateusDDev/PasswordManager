@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import PasswordDisplay from './PasswordDisplay';
 import Fields from './Fields';
+import { Services } from '../types';
 
 function Form() {
   const [show, setShow] = useState(true);
   const [service, setService] = useState('');
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
+  const [url, setUrl] = useState('');
+  const [registeredServices, setRegisteredServices] = useState<Services[]>([]);
 
   const elevateService = (str: string) => {
     setService(str);
@@ -20,8 +23,34 @@ function Form() {
     setPassword(str);
   };
 
+  const elevateUrl = (str: string) => {
+    setUrl(str);
+  };
+
   const handleClick = () => {
     setShow(!show);
+  };
+
+  const clearForm = () => {
+    setService('');
+    setLogin('');
+    setPassword('');
+    setUrl('');
+    setShow(!show);
+  };
+
+  const handleRegisteredServices = (e: React.MouseEvent<HTMLButtonElement,
+  MouseEvent>) => {
+    const serviceObj = {
+      serviceName: service,
+      serviceLogin: login,
+      servicePassword: password,
+      serviceUrl: url,
+    };
+
+    e.preventDefault();
+    setRegisteredServices([...registeredServices, serviceObj]);
+    clearForm();
   };
 
   const passwordChecks = {
@@ -39,6 +68,14 @@ function Form() {
     return (
       <div>
         <button onClick={ handleClick }>Cadastrar nova senha</button>
+        {registeredServices.length <= 0 && (<p>nenhuma senha cadastrada</p>)}
+        {registeredServices.length > 0 && registeredServices.map((item, index) => (
+          <div key={ index }>
+            <a href={ item.serviceUrl }>{item.serviceName}</a>
+            <p>{item.serviceLogin}</p>
+            <p>{item.servicePassword}</p>
+          </div>
+        ))}
       </div>
     );
   }
@@ -50,11 +87,18 @@ function Form() {
           changeService={ elevateService }
           changeLogin={ elevateLogin }
           changePassword={ elevatePassword }
+          changeUrl={ elevateUrl }
           service={ service }
           login={ login }
           password={ password }
+          url={ url }
         />
-        <button disabled={ !isChecked }>Cadastrar</button>
+        <button
+          disabled={ !isChecked }
+          onClick={ handleRegisteredServices }
+        >
+          Cadastrar
+        </button>
         <button onClick={ handleClick }>Cancelar</button>
       </form>
       <PasswordDisplay

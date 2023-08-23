@@ -4,13 +4,19 @@ type FieldsProps = {
   changeService: (param: string) => void;
   changeLogin: (param: string) => void;
   changePassword: (param: string) => void;
+  changeUrl: (param: string) => void;
   service: string;
   login: string;
   password: string;
+  url: string;
 };
 
 function Field(props: FieldsProps) {
-  const { changeService, changeLogin, changePassword, service, login, password } = props;
+  const {
+    changeService, changeLogin,
+    changePassword, changeUrl,
+    service, login,
+    password, url } = props;
 
   const handleService = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeService(event.target.value);
@@ -22,6 +28,10 @@ function Field(props: FieldsProps) {
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     changePassword(event.target.value);
+  };
+
+  const handleUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changeUrl(event.target.value);
   };
 
   return (
@@ -55,7 +65,11 @@ function Field(props: FieldsProps) {
 
       <label>
         URL
-        <input type="text" />
+        <input
+          type="text"
+          value={ url }
+          onChange={ handleUrl }
+        />
       </label>
     </>
   );
