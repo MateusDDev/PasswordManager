@@ -38,7 +38,7 @@ function RegisterPassword(props: RegisterPasswordProps) {
   return (
     <div>
       <button onClick={ handleClick }>Cadastrar nova senha</button>
-      {registeredServices.length <= 0 && (<p>nenhuma senha cadastrada</p>)}
+      {registeredServices.length <= 0 && (<p>Nenhuma senha cadastrada</p>)}
       {registeredServices.length > 0 && registeredServices.map((item, index) => (
         <div key={ index }>
           <a href={ item.serviceUrl }>{item.serviceName}</a>

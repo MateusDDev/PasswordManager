@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 import PasswordDisplay from './PasswordDisplay';
 import Fields from './Fields';
 import { Services } from '../types';
@@ -36,6 +37,24 @@ function Form() {
     setRegisteredServices(services);
   };
 
+  const clearForm = () => {
+    setService('');
+    setLogin('');
+    setPassword('');
+    setUrl('');
+    setShow(!show);
+  };
+
+  const fireAlert = () => {
+    return Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Serviço cadastrado com sucesso',
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
+
   const handleRegisteredServices = (e: React.MouseEvent<HTMLButtonElement,
   MouseEvent>) => {
     const serviceObj = {
@@ -48,14 +67,7 @@ function Form() {
     e.preventDefault();
     setRegisteredServices([...registeredServices, serviceObj]);
     clearForm();
-  };
-
-  const clearForm = () => {
-    setService('');
-    setLogin('');
-    setPassword('');
-    setUrl('');
-    setShow(!show);
+    fireAlert();
   };
 
   const passwordChecks = {

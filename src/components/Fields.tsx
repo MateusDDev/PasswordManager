@@ -72,6 +72,14 @@ function Field(props: FieldsProps) {
           onChange={ handlePassword }
         />
       </label>
+      <button
+        type="button"
+        data-testid="show-hide-form-password"
+        onClick={ handleUrlType }
+      >
+        {type === 'password' ? 'Exibir Senha' : 'Ocultar senha'}
+      </button>
+
       <label>
         URL
         <input
@@ -80,13 +88,6 @@ function Field(props: FieldsProps) {
           onChange={ handleUrl }
         />
       </label>
-      <button
-        type="button"
-        data-testid="show-hide-form-password"
-        onClick={ handleUrlType }
-      >
-        {type === 'password' ? 'Exibir Senha' : 'Ocultar senha'}
-      </button>
     </>
   );
 }
