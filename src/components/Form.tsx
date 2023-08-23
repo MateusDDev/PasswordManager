@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PasswordDisplay from './PasswordDisplay';
+import Fields from './Fields';
 
 function Form() {
   const [show, setShow] = useState(true);
@@ -7,20 +8,20 @@ function Form() {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
 
+  const elevateService = (str: string) => {
+    setService(str);
+  };
+
+  const elevateLogin = (str: string) => {
+    setLogin(str);
+  };
+
+  const elevatePassword = (str: string) => {
+    setPassword(str);
+  };
+
   const handleClick = () => {
     setShow(!show);
-  };
-
-  const handleService = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setService(event.target.value);
-  };
-
-  const handleLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(event.target.value);
-  };
-
-  const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
   };
 
   const passwordChecks = {
@@ -45,26 +46,14 @@ function Form() {
   return (
     <>
       <form>
-        <label>
-          Nome do serviço
-          <input type="text" onChange={ handleService } />
-        </label>
-
-        <label>
-          Login
-          <input type="text" onChange={ handleLogin } />
-        </label>
-
-        <label>
-          Senha
-          <input type="password" onChange={ handlePassword } />
-        </label>
-
-        <label>
-          URL
-          <input type="text" />
-        </label>
-
+        <Fields
+          changeService={ elevateService }
+          changeLogin={ elevateLogin }
+          changePassword={ elevatePassword }
+          service={ service }
+          login={ login }
+          password={ password }
+        />
         <button disabled={ !isChecked }>Cadastrar</button>
         <button onClick={ handleClick }>Cancelar</button>
       </form>
