@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 type FieldsProps = {
   changeService: (param: string) => void;
@@ -12,6 +12,8 @@ type FieldsProps = {
 };
 
 function Field(props: FieldsProps) {
+  const [type, setType] = useState('password');
+
   const {
     changeService, changeLogin,
     changePassword, changeUrl,
@@ -32,6 +34,14 @@ function Field(props: FieldsProps) {
 
   const handleUrl = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeUrl(event.target.value);
+  };
+
+  const handleUrlType = () => {
+    if (type === 'password') {
+      setType('text');
+    } else if (type === 'text') {
+      setType('password');
+    }
   };
 
   return (
@@ -57,12 +67,11 @@ function Field(props: FieldsProps) {
       <label>
         Senha
         <input
-          type="password"
+          type={ type }
           value={ password }
           onChange={ handlePassword }
         />
       </label>
-
       <label>
         URL
         <input
@@ -71,6 +80,13 @@ function Field(props: FieldsProps) {
           onChange={ handleUrl }
         />
       </label>
+      <button
+        type="button"
+        data-testid="show-hide-form-password"
+        onClick={ handleUrlType }
+      >
+        {type === 'password' ? 'Exibir Senha' : 'Ocultar senha'}
+      </button>
     </>
   );
 }
