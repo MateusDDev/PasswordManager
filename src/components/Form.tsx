@@ -31,12 +31,9 @@ function Form() {
     setShow(!show);
   };
 
-  const clearForm = () => {
-    setService('');
-    setLogin('');
-    setPassword('');
-    setUrl('');
-    setShow(!show);
+  const handleDelete = (element: Services) => {
+    const ar = registeredServices.filter((s) => s !== element);
+    setRegisteredServices(ar);
   };
 
   const handleRegisteredServices = (e: React.MouseEvent<HTMLButtonElement,
@@ -51,6 +48,14 @@ function Form() {
     e.preventDefault();
     setRegisteredServices([...registeredServices, serviceObj]);
     clearForm();
+  };
+
+  const clearForm = () => {
+    setService('');
+    setLogin('');
+    setPassword('');
+    setUrl('');
+    setShow(!show);
   };
 
   const passwordChecks = {
@@ -74,6 +79,12 @@ function Form() {
             <a href={ item.serviceUrl }>{item.serviceName}</a>
             <p>{item.serviceLogin}</p>
             <p>{item.servicePassword}</p>
+            <button
+              data-testid="remove-btn"
+              onClick={ () => handleDelete(item) }
+            >
+              Apagar Serviço
+            </button>
           </div>
         ))}
       </div>
