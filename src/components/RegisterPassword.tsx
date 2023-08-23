@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Services } from '../types';
 
 type RegisterPasswordProps = {
@@ -7,6 +8,8 @@ type RegisterPasswordProps = {
 };
 
 function RegisterPassword(props: RegisterPasswordProps) {
+  const [check, setCheck] = useState(false);
+
   const { changeShow, changeRegisteredServices, registeredServices } = props;
 
   const handleClick = () => {
@@ -18,6 +21,20 @@ function RegisterPassword(props: RegisterPasswordProps) {
     changeRegisteredServices(ar);
   };
 
+  const handleCheckbox = () => {
+    setCheck(!check);
+  };
+
+  const turnPassword = (str: string) => {
+    const splitted = str.split('');
+    const ar = splitted.map((letter) => {
+      letter = '*';
+      return letter;
+    });
+
+    return ar.join('');
+  };
+
   return (
     <div>
       <button onClick={ handleClick }>Cadastrar nova senha</button>
@@ -26,7 +43,18 @@ function RegisterPassword(props: RegisterPasswordProps) {
         <div key={ index }>
           <a href={ item.serviceUrl }>{item.serviceName}</a>
           <p>{item.serviceLogin}</p>
-          <p>{item.servicePassword}</p>
+          <div>
+            {check && <p>{turnPassword(item.servicePassword)}</p>}
+            {check === false && <p>{item.servicePassword}</p>}
+            <label>
+              Esconder senhas
+              <input
+                type="checkbox"
+                checked={ check }
+                onChange={ handleCheckbox }
+              />
+            </label>
+          </div>
           <button
             data-testid="remove-btn"
             onClick={ () => handleDelete(item) }
