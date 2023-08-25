@@ -1,6 +1,20 @@
+import './Header.css';
+
 function Header() {
   return (
-    <h1>Gerenciador de senhas</h1>
+    <section className="header-section">
+      <h1>
+        Gerenciador
+        {' '}
+        <span>*</span>
+        {' '}
+        de
+        {' '}
+        <span>*</span>
+        {' '}
+        senhas
+      </h1>
+    </section>
   );
 }
 

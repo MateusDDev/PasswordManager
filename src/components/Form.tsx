@@ -4,6 +4,7 @@ import PasswordDisplay from './PasswordDisplay';
 import Fields from './Fields';
 import { Services } from '../types';
 import RegisterPassword from './RegisterPassword';
+import './Form.css';
 
 function Form() {
   const [show, setShow] = useState(true);
@@ -92,33 +93,30 @@ function Form() {
   }
 
   return (
-    <>
-      <form>
+    <main>
+      <div className="main-section">
         <Fields
           changeService={ elevateService }
           changeLogin={ elevateLogin }
           changePassword={ elevatePassword }
           changeUrl={ elevateUrl }
+          changeShow={ elevateShow }
+          changeRegisteredServices={ handleRegisteredServices }
           service={ service }
           login={ login }
           password={ password }
           url={ url }
+          isChecked={ isChecked }
+          show={ show }
         />
-        <button
-          disabled={ !isChecked }
-          onClick={ handleRegisteredServices }
-        >
-          Cadastrar
-        </button>
-        <button onClick={ () => setShow(!show) }>Cancelar</button>
-      </form>
-      <PasswordDisplay
-        max={ passwordChecks.keyPasswordMaxLength }
-        min={ passwordChecks.keyPasswordMinLength }
-        specialChar={ passwordChecks.keyPasswordSpecial }
-        alphanumeric={ passwordChecks.keyPasswordAlphanumeric }
-      />
-    </>
+        <PasswordDisplay
+          max={ passwordChecks.keyPasswordMaxLength }
+          min={ passwordChecks.keyPasswordMinLength }
+          specialChar={ passwordChecks.keyPasswordSpecial }
+          alphanumeric={ passwordChecks.keyPasswordAlphanumeric }
+        />
+      </div>
+    </main>
   );
 }
 

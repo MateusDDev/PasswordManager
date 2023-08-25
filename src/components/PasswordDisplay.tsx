@@ -1,3 +1,5 @@
+import './PasswordDisplay.css';
+
 type PasswordDisplayProps = {
   max: boolean;
   min: boolean;
@@ -14,8 +16,7 @@ function PasswordDisplay({ max, min, specialChar, alphanumeric }: PasswordDispla
   };
 
   return (
-    <div>
-      <h2>A senha deve:</h2>
+    <div className="display">
       <p className={ max ? checks(max) : checks(max) }>Possuir até 16 caracteres</p>
       <p className={ min ? checks(min) : checks(min) }>Possuir 8 ou mais caracteres</p>
       <p className={ specialChar ? checks(specialChar) : checks(specialChar) }>

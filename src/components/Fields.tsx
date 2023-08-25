@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import './Fields.css';
 
 type FieldsProps = {
   changeService: (param: string) => void;
   changeLogin: (param: string) => void;
   changePassword: (param: string) => void;
   changeUrl: (param: string) => void;
+  changeShow: (param: boolean) => void;
+  changeRegisteredServices: (e: React.MouseEvent<HTMLButtonElement,
+  MouseEvent>) => void;
   service: string;
   login: string;
   password: string;
   url: string;
+  show: boolean;
+  isChecked: boolean;
 };
 
 function Field(props: FieldsProps) {
@@ -17,8 +23,9 @@ function Field(props: FieldsProps) {
   const {
     changeService, changeLogin,
     changePassword, changeUrl,
+    changeShow, changeRegisteredServices, show,
     service, login,
-    password, url } = props;
+    password, url, isChecked } = props;
 
   const handleService = (event: React.ChangeEvent<HTMLInputElement>) => {
     changeService(event.target.value);
@@ -45,7 +52,7 @@ function Field(props: FieldsProps) {
   };
 
   return (
-    <>
+    <form className="fields">
       <label>
         Nome do serviço
         <input
@@ -55,30 +62,32 @@ function Field(props: FieldsProps) {
         />
       </label>
 
-      <label>
-        Login
-        <input
-          type="text"
-          value={ login }
-          onChange={ handleLogin }
-        />
-      </label>
+      <div className="fields-container">
+        <label>
+          Login
+          <input
+            type="text"
+            value={ login }
+            onChange={ handleLogin }
+          />
+        </label>
 
-      <label>
-        Senha
-        <input
-          type={ type }
-          value={ password }
-          onChange={ handlePassword }
-        />
-      </label>
-      <button
-        type="button"
-        data-testid="show-hide-form-password"
-        onClick={ handleUrlType }
-      >
-        {type === 'password' ? 'Exibir Senha' : 'Ocultar senha'}
-      </button>
+        <label>
+          Senha
+          <input
+            type={ type }
+            value={ password }
+            onChange={ handlePassword }
+          />
+          <button
+            type="button"
+            data-testid="show-hide-form-password"
+            onClick={ handleUrlType }
+          >
+            {type === 'password' ? 'Exibir Senha' : 'Ocultar senha'}
+          </button>
+        </label>
+      </div>
 
       <label>
         URL
@@ -88,7 +97,22 @@ function Field(props: FieldsProps) {
           onChange={ handleUrl }
         />
       </label>
-    </>
+
+      <div className="fields-buttons">
+        <button
+          className="cancel-button"
+          onClick={ () => changeShow(!show) }
+        >
+          Cancelar
+        </button>
+        <button
+          disabled={ !isChecked }
+          onClick={ changeRegisteredServices }
+        >
+          Cadastrar
+        </button>
+      </div>
+    </form>
   );
 }
 
