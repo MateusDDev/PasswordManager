@@ -51,3 +51,31 @@
   background-color: transparent;
   color: #3590f5;
 }
+
+@media screen and ( max-width : 1250px ) {
+
+  .fields label {
+    width: 100%;
+  }
+
+  .fields-container {
+    width: 100%;
+  }
+}
+
+@media screen and ( max-width : 675px ) {
+
+  .fields-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fields-buttons {
+    width: 100%;
+  }
+
+  .fields-buttons button {
+    font-size: 15px;
+    height: 40px;
+  }
+}
