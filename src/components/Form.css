@@ -10,5 +10,12 @@ main {
   border-radius: 10px;
   display: flex;
   margin-top: 30px;
-  width: 980px;
+  width: 70%;
+}
+
+@media screen and ( max-width : 1250px ) {
+
+  .main-section {
+    flex-direction: column;
+  }
 }

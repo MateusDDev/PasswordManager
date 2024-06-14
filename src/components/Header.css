@@ -6,3 +6,17 @@
 .header-section h1 span {
   color: #3187e7;
 }
+
+@media screen and ( max-width : 1250px ) {
+
+  .header-section h1 {
+    font-size: 55px;
+  }
+}
+
+@media screen and ( max-width : 850px ) {
+
+  .header-section h1 {
+    font-size: 35px;
+  }
+}
