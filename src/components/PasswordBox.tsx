@@ -41,7 +41,7 @@ function PasswordBox(props: PasswordBoxProps) {
         <p>Senha</p>
         <hr />
         <label>
-          Esconder senhas
+          Esconder senha
           <input
             type="checkbox"
             checked={ check }

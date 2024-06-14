@@ -9,10 +9,10 @@
     "web-vitals": "^2.1.4"
   },
   "engines": {
-    "node": "16 || 18"
+    "node": "20"
   },
   "scripts": {
-    "dev": "vite --open",
+    "start": "vite --open",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
